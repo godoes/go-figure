@@ -2,6 +2,6 @@ module github.com/godoes/go-figure
 
 go 1.17
 
-require github.com/wzshiming/winseq v0.0.0-20200720163736-7fa652d2b50e
+require github.com/godoes/winseq v0.0.4
 
-require golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8 // indirect
+require golang.org/x/sys v0.9.0 // indirect
