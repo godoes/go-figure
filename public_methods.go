@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/wzshiming/winseq" // Use Unix like Sequences in Windows
+	_ "github.com/godoes/winseq" // Use Unix like Sequences in Windows
 )
 
 // Print stdout
@@ -118,7 +118,7 @@ func Write(w io.Writer, fig Figure) {
 	}
 }
 
-//helpers
+// helpers
 func clearScreen() {
 	fmt.Print("\033[H\033[2J")
 }
