@@ -3,19 +3,33 @@ package figure
 import (
 	"fmt"
 	"io"
+	"os"
+	"os/exec"
 	"strings"
 	"time"
 
+	ct "github.com/daviddengcn/go-colortext"
 	_ "github.com/godoes/winseq" // Use Unix like Sequences in Windows
 )
 
+// IsOldWindows is older Windows OS below Windows 10
+var IsOldWindows bool
+
 // Print stdout
 func (fig Figure) Print() {
+	colorful := fig.color != ""
 	for _, printRow := range fig.Slicify() {
-		if fig.color != "" {
-			printRow = colors[fig.color] + printRow + colors["reset"]
+		if colorful {
+			if IsOldWindows {
+				ct.Foreground(ctColors[fig.color], true)
+			} else {
+				printRow = colors[fig.color] + printRow + colors["reset"]
+			}
 		}
 		fmt.Println(printRow)
+		if colorful && IsOldWindows {
+			ct.ResetColor()
+		}
 	}
 }
 
@@ -120,7 +134,13 @@ func Write(w io.Writer, fig Figure) {
 
 // helpers
 func clearScreen() {
-	fmt.Print("\033[H\033[2J")
+	if IsOldWindows {
+		cmd := exec.Command("cmd", "/c", "cls")
+		cmd.Stdout = os.Stdout
+		_ = cmd.Run()
+	} else {
+		fmt.Print("\033[H\033[2J")
+	}
 }
 
 func sleep(milliseconds int) {
