@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/fatih/color v1.18.0
-	github.com/mattn/go-colorable v0.1.14
+	github.com/mattn/go-colorable v0.1.15
 )
 
 require (
